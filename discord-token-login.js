@@ -71,13 +71,15 @@ function LoadAccounts() {
 
     css += ".accounts {"
     css += "    background-color: #7289DA;";
-    css += "    height: 44px; width: 112px;";
+    css += "    height: 44px; width: auto;";
     css += "    border: none; color: #FFF;";
     css += "    padding: 0px; text-align: center;";
     css += "    display: inline-block;";
     css += "    font-size: 16px;";
     css += "    line-height: 24px;";
     css += "    margin-top: 20px;";
+    css += "    padding-left: 10px;";
+    css += "    padding-right: 10px;";
     css += "    border-radius: 5px;";
     css += "    margin-right: 20px;";
     css += "    transition: background-color .17s ease, color .17s ease;";
@@ -143,7 +145,17 @@ function LoadAccounts() {
         var button = document.createElement("button");
         button.className = "accounts";
         button.innerText = name;
-        button.addEventListener("click", () => {Login(token)});
+        button.addEventListener("mouseup", (event) => {
+            if (event.button == 0) {Login(token);}
+            if (event.button == 2) {
+                const copy = document.createElement("textArea");
+                copy.value = token;
+                document.body.appendChild(copy);
+                copy.select();
+                document.execCommand("copy");
+                document.body.removeChild(copy);
+            }
+        });
         container.append(button);
     }
 
